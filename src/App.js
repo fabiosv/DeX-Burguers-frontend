@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import {
+  Route,
+  Switch,
+  BrowserRouter as Router
+} from 'react-router-dom'
+import './App.css'
+import { connect } from 'react-redux'
+import ConnectedMainPage from './views/mainPage'
+import DemoPage from './views/demoPage'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route exact path='/demo' component={DemoPage}/>
+            <Route exact path='/' component={ConnectedMainPage} />
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default connect((state) => ({
+  loading: state.loading
+}))(App)

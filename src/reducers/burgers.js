@@ -8,15 +8,22 @@ import {
 export default function burgers (state = [], action) {
   switch(action.type) {
     case RECEIVE_BURGERS :
-      return action.burgers
+      return Object.keys(action.burgers).map((burger) => ({
+        name: burger,
+        ingredients: action.burgers[burger]
+      }))
     case ADD_BURGER :
-      return {...state, ...action.burger}
+      return [...state, ...action.burger]
     case UPDATE_BURGER :
-      return Object.assign(action.burger, state)
+      return state.filter((burger) => burger.name === action.burger.name
+        ? {
+          name: burger,
+          ingredients: action.burgers[burger].ingredients
+        }
+        : burger
+      )
     case DELETE_BURGER :
-      const burgers = state
-      delete burgers[action.burger.name]
-      return Object.assign(burgers)
+      return state.filter((burger) => burger.name !== action.burger.name)
     default :
       return state
   }
