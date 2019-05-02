@@ -59,30 +59,32 @@ export function handleAddBurger(burger, sucs_calb_fn, err_calb_fn) {
       .catch((error) =>{
         console.log(`Burger: ${error} not found`)
         // dispatch(loaded())
-        err_calb_fn()
+        err_calb_fn(error)
       })
   }
 }
 
-export function handleUpdateBurgers(burger, sucs_calb_fn, err_calb_fn) {
+export function handleUpdateBurger(burger, sucs_calb_fn, err_calb_fn) {
   return (dispatch) => {
-    return API.burgers.updateBurger()
-      .then((msg) => {
+    return API.burgers.updateBurger(burger)
+      .then((data) => {
+        console.log(data)
         dispatch(updateBurger(burger))
         // dispatch(loaded())
         sucs_calb_fn()
       })
       .catch((error) =>{
-        console.log(`Burger: ${error} not found`)
+        console.log(`Burger: ${error}`)
         // dispatch(loaded())
-        err_calb_fn()
+        err_calb_fn(error)
       })
   }
 }
 
-export function handleDeleteBurgers(burger, sucs_calb_fn, err_calb_fn) {
+export function handleDeleteBurger(burger, sucs_calb_fn, err_calb_fn) {
+  console.log(burger)
   return (dispatch) => {
-    return API.burgers.deleteBurger()
+    return API.burgers.deleteBurger(burger.name)
       .then((msg) => {
         dispatch(deleteComment(burger))
         // dispatch(loaded())
@@ -91,7 +93,7 @@ export function handleDeleteBurgers(burger, sucs_calb_fn, err_calb_fn) {
       .catch((error) =>{
         console.log(`Burger: ${error} not found`)
         // dispatch(loaded())
-        err_calb_fn()
+        err_calb_fn(error)
       })
   }
 }

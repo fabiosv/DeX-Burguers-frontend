@@ -1,14 +1,31 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import debounce from 'lodash.debounce'
 import {API_HOST} from '../utils/api_settings'
 import Sidebar from '../components/sidebar'
+import ConnectedIngredientsList from '../components/ingredientsList'
+import { calculatePrice } from '../utils/API/calculate';
 
-class MainPage extends Component {
+class CustomPage extends Component {
+  state = {
+    originalPrice: 0,
+    promoPrice: 0,
+    promotions: []
+  }
+
+  getPrice = debounce((ingredients) => {
+    calculatePrice({name: "custom", ingredients})
+      .then((data) => {
+        this.setState((currentState) => ({...data}))
+        console.log("calculated")
+      })
+  }, 1500)
+
   render() {
     const {ingredients, burgers} = this.props;
     return (
-      <div className="">
+      <div className="containerFlex">
         <header className="">
           <h1>DeX-Burgers</h1>
         </header>
@@ -16,20 +33,8 @@ class MainPage extends Component {
         {/* <div>
           {JSON.stringify(ingredients)}
         </div> */}
-        <h2>Cardápio</h2>
-        <div className="burgers_menu">
-          {burgers.map((burger) => (
-            <span className="burger" key={burger.name}>
-              <img src={API_HOST + burger.image} height={200} width={200}/>
-              <h4>{burger.name}</h4>
-              <ul>
-                {burger.ingredients.map((ingredient) => (
-                  <li key={ingredient}>{ingredient}</li>
-                ))}
-              </ul>
-            </span>
-          ))}
-        </div>
+        <h2>Faça seu próprio lanche</h2>
+        <ConnectedIngredientsList/>
       </div>
     )
   }
@@ -39,4 +44,4 @@ export default withRouter(connect((state) => ({
   loading: state.loading,
   ingredients: state.ingredients,
   burgers: state.burgers,
-}))(MainPage))
+}))(CustomPage))

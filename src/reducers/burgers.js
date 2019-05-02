@@ -10,7 +10,7 @@ export default function burgers (state = [], action) {
     case RECEIVE_BURGERS :
       return Object.keys(action.burgers).map((burger) => ({
         name: burger,
-        ingredients: action.burgers[burger]
+        ...action.burgers[burger]
       }))
     case ADD_BURGER :
       return [...state, ...action.burger]
