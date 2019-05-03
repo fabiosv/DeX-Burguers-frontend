@@ -15,7 +15,7 @@ import ConnectedMainPage from './views/mainPage'
 import ConnectedAdminPage from './views/adminPage'
 // import ConnectedBurgersPage from './views/burgersPage'
 import ConnectedCustomPage from './views/customPage'
-import DemoPage from './views/demoPage'
+import ConnectedCartPage from './views/cartPage'
 
 class App extends Component {
   state = {
@@ -47,12 +47,11 @@ class App extends Component {
       <div className="App" style={{background: `url(${background}) no-repeat center center fixed`}}>
         <Router>
           <Switch>
-            <Route exact path='/demo' component={DemoPage}/>
             <Route exact path='/admin' component={ConnectedAdminPage} />
             <Route exact path='/admin/:menu' component={ConnectedAdminPage} />
-            <Route exact path='/' component={ConnectedMainPage} />
+            <Route exact path='/cart' component={ConnectedCartPage} />
             <Route exact path='/custom' component={ConnectedCustomPage} />
-            <Route exact path='/:menu' component={ConnectedMainPage} />
+            <Route exact path='/' component={ConnectedMainPage} />
           </Switch>
         </Router>
       </div>

@@ -124,3 +124,10 @@ table, th, td {
   right: 5px;
   top: 3px;
 }
+
+.burgerCart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgba(150, 150, 100, 0.8);
+}

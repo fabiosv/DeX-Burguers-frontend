@@ -6,10 +6,14 @@ import {API_HOST} from '../utils/api_settings'
 import Sidebar from '../components/sidebar'
 import Header from '../components/header'
 import ConnectedIngredientsList from '../components/ingredientsList'
-import { calculatePrice } from '../utils/API/calculate';
-import { handleReceivePrices } from '../actions/prices';
-import { clearCustomList } from '../actions/customBurger';
-import Loader from '../components/loader';
+import { calculatePrice } from '../utils/API/calculate'
+import { handleReceivePrices } from '../actions/prices'
+import { clearCustomList } from '../actions/customBurger'
+import Loader from '../components/loader'
+import Swal from 'sweetalert2'
+import {handleCartAddBurger, cartRemoveBurger} from '../actions/cart'
+import {MdAddShoppingCart} from "react-icons/md"
+import {sucessToast} from '../utils/ux_alerts'
 
 class CustomPage extends Component {
   state = {
@@ -19,14 +23,27 @@ class CustomPage extends Component {
     selectedIngredients: 0
   }
 
-  // getPrice = debounce((ingredients) => {
-  //   calculatePrice({name: "custom", ingredients})
-  //     .then((data) => {
-  //       this.setState((currentState) => ({...data}))
-  //       console.log("calculated")
-  //       console.log(data)
-  //     })
-  // }, 1500)
+  addToCart() {
+    const {dispatch} = this.props
+    const {customBurger} = this.props
+    const burger = {
+      name: "custom",
+      ingredients: customBurger
+    }
+    Swal.fire({
+      title: `Você deseja adicionar um ${burger.name} ao carrinho?`,
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Adicionar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+        dispatch(handleCartAddBurger(burger, () => sucessToast("Adicionado!")))
+      }
+    })
+  }
 
   componentDidMount() {
     const {dispatch} = this.props
@@ -66,7 +83,7 @@ class CustomPage extends Component {
 
 
   render() {
-    const {ingredients, burgers, loading, prices} = this.props;
+    const {ingredients, loading, prices} = this.props;
     const price = this.getPrice()
     return (
       <React.Fragment>
@@ -89,6 +106,9 @@ class CustomPage extends Component {
           {price.promotions.length === 0 && (
             <p>Preço: R$ {price.originalPrice.toFixed(2)}</p>
           )}
+          <button onClick={(e) => this.addToCart()} title="Adicionar ao Carrinho">
+            <MdAddShoppingCart/>
+          </button>
         </div>
       </React.Fragment>
     )
