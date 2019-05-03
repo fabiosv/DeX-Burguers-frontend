@@ -1,7 +1,7 @@
-import { API_HOST, headers } from '../api_settings'
+import { API_HOST, API_VERSION, headers } from '../api_settings'
 
 export const calculatePrice = (burger) =>
-  fetch(`${API_HOST}/calculate`, {
+  fetch(`${API_HOST}/${API_VERSION}/calculate`, {
     method: 'POST',
     headers: {
       ...headers,
