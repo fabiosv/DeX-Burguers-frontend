@@ -4,7 +4,7 @@ import withReactContent from 'sweetalert2-react-content'
 const MySwal = withReactContent(Swal)
 
 export const sucessToast = (msg) => {
-  const Toast = MySwal.mixin({
+  const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,

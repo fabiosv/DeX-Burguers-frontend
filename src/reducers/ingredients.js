@@ -10,13 +10,13 @@ export default function ingredients (state = [], action) {
     case RECEIVE_INGREDIENTS :
       return action.ingredients
     case ADD_INGREDIENT :
-      return {...state, ...action.ingredient}
+      return {...state, [action.ingredient.name]: action.ingredient.price }
     case UPDATE_INGREDIENT :
-      return Object.assign(action.ingredient, state)
+      state[action.ingredient.name] = action.ingredient.price
+      return JSON.parse(JSON.stringify(state))
     case DELETE_INGREDIENT :
-      const ingredients = state
-      delete ingredients[action.ingredient.name]
-      return Object.assign(ingredients)
+      delete state[action.ingredient.name]
+      return JSON.parse(JSON.stringify(state))
     default :
       return state
   }

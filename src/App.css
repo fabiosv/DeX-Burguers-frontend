@@ -5,6 +5,10 @@
   /* align-items: center;
   justify-content: center; */
   font-size: calc(10px + 2vmin);
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 .App-logo {
@@ -37,10 +41,40 @@
   }
 }
 
+.header {
+  background: black;
+  height: 53px;
+  position: fixed;
+  width: 100%;
+}
+
+.header img {
+  margin-top: 3px;
+  height: 100px;
+  /* padding-bottom: 1px; */
+  width: 125px;
+  /* margin-right: 50px; */
+  /* left: 70px; */
+  position: fixed;
+  background: black;
+  border-radius: 51px;
+}
+
+.content {
+  top: 200px;
+  position: relative;
+}
+
 .burgers_menu {
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  grid-template-columns: 50% 50%;
+  /* grid-template-rows: 20% 20% 20% 20% 20%; */
+  color: white;
+}
+
+.burgers_menu ul, li {
+  list-style: none;
+  padding-left: 0px;
 }
 
 .card {
@@ -58,8 +92,16 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  top: 120px;
+  position: relative;
 }
 
 nav {
   position: fixed !important;
+}
+
+table, th, td {
+  border: 1px solid black;
+  background: white;
+  /* background-color: rgba(150, 150, 100, 0.8); */
 }

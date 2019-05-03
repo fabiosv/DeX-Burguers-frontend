@@ -1,0 +1,9 @@
+.loader {
+  top: 50%;
+  height: 55px;
+  width: 220px;
+  margin: auto;
+  position: absolute;
+  z-index: 1;
+  right: 40%;
+}
