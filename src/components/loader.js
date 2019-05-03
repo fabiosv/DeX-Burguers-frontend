@@ -1,5 +1,4 @@
 import React from 'react'
-import {bool} from 'prop-types'
 import {PacmanLoader} from 'react-spinners'
 import './loader.css'
 
@@ -16,15 +15,11 @@ function Loader (props) {
         css={override}
         sizeUnit={"px"}
         size={25}
-        color={'#123abc'}
+        color={'#ffff00'}
         loading={loading}
       />
     </div>
   )
-}
-
-Loader.propTypes = {
-  loading: bool.isRequired,
 }
 
 export default Loader

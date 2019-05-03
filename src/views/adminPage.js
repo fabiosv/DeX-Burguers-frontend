@@ -7,16 +7,12 @@ import {API_HOST} from '../utils/api_settings'
 import Sidebar from '../components/sidebar'
 import ConnectedBurgerContainer from '../components/burgerContainer'
 import ConnectedIngredientsContainer from '../components/ingredientsContainer'
+import Header from '../components/header'
+import Loader from '../components/loader';
 
 class AdminPage extends Component {
   state = {
     admin_pages: ["burgers", "ingredients", "discounts"]
-  }
-  componentDidMount() {
-    const { dispatch } = this.props
-
-    dispatch(handleReceiveIngredients())
-    dispatch(handleReceiveBurgers())
   }
 
   isMenuValid() {
@@ -28,13 +24,15 @@ class AdminPage extends Component {
 
   render() {
     const { menu } = this.props.match.params
-    const {ingredients, burgers} = this.props;
+    const {ingredients, burgers, loading} = this.props;
 
     if(menu === "burgers"){
       return(
-        <div>
+        <div className="">
+          <Header/>
           <Sidebar history={this.props.history}/>
-          <ConnectedBurgerContainer/>
+          <Loader loading={loading}/>
+          <ConnectedBurgerContainer className="content"/>
         </div>
       )
     }
@@ -42,18 +40,20 @@ class AdminPage extends Component {
     if(menu === "ingredients"){
       return(
         <div>
+          <Header/>
           <Sidebar history={this.props.history}/>
-          <ConnectedIngredientsContainer/>
+          <Loader loading={loading}/>
+          <ConnectedIngredientsContainer className="content"/>
         </div>
       )
     }
 
     return (
       <div className="">
-        <header className="">
-        </header>
+        <Header/>
         <Sidebar history={this.props.history}/>
-        <div className="burgers_menu">
+        <Loader loading={loading}/>
+        <div className="content">
         </div>
       </div>
     )

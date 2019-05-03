@@ -1,7 +1,8 @@
 import {
   CUSTOM_ADD_INGREDIENT,
   CUSTOM_REMOVE_INGREDIENT,
-  CUSTOM_LOAD_INGREDIENTS
+  CUSTOM_LOAD_INGREDIENTS,
+  CUSTOM_CLEAR_LIST
 } from '../actions/customBurger'
 
 export default function customBurger (state = [], action) {
@@ -17,6 +18,8 @@ export default function customBurger (state = [], action) {
         ingredients.splice(index, 1)
       }
       return JSON.parse(JSON.stringify(ingredients))
+    case CUSTOM_CLEAR_LIST :
+      return []
     default :
       return state
   }

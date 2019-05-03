@@ -1,6 +1,6 @@
 import {RECEIVE_BURGERS} from '../actions/burgers'
 import {RECEIVE_INGREDIENTS} from '../actions/ingredients'
-import { LOADED } from '../actions/loading'
+import { LOADED, LOADING } from '../actions/loading'
 
 
 export default function loading (state = true, action) {
@@ -11,6 +11,8 @@ export default function loading (state = true, action) {
       return true
     case LOADED :
       return false
+    case LOADING :
+      return true
     default :
       return state
   }

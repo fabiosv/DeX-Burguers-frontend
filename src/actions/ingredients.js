@@ -50,9 +50,10 @@ export function handleReceiveIngredients() {
 export function handleAddIngredient(ingredient, sucs_calb_fn, err_calb_fn) {
   return (dispatch) => {
     return API.ingredients.addIngredient(ingredient)
-      .then((msg) => {
-        dispatch(addIngredient(ingredient))
+      .then((data) => {
+        dispatch(addIngredient(data))
         // dispatch(loaded())
+        console.log("dispatched")
         sucs_calb_fn()
       })
       .catch((error) =>{
@@ -65,7 +66,7 @@ export function handleAddIngredient(ingredient, sucs_calb_fn, err_calb_fn) {
 
 export function handleUpdateIngredients(ingredient, sucs_calb_fn, err_calb_fn) {
   return (dispatch) => {
-    return API.ingredients.updateIngredient()
+    return API.ingredients.updateIngredient(ingredient)
       .then((msg) => {
         dispatch(updateIngredient(ingredient))
         // dispatch(loaded())
@@ -81,11 +82,12 @@ export function handleUpdateIngredients(ingredient, sucs_calb_fn, err_calb_fn) {
 
 export function handleDeleteIngredients(ingredient, sucs_calb_fn, err_calb_fn) {
   return (dispatch) => {
-    return API.ingredients.deleteIngredient()
-      .then((msg) => {
+    return API.ingredients.deleteIngredient(ingredient)
+      .then((data) => {
         dispatch(deleteComment(ingredient))
+        console.log(data)
         // dispatch(loaded())
-        sucs_calb_fn()
+        sucs_calb_fn(data.msg)
       })
       .catch((error) =>{
         console.log(`Ingredient: ${error} not found`)

@@ -2,6 +2,7 @@ import {
   RECEIVE_BURGERS,
   ADD_BURGER,
   UPDATE_BURGER,
+  UPDATE_BURGER_IMAGE,
   DELETE_BURGER
 } from '../actions/burgers'
 
@@ -13,15 +14,22 @@ export default function burgers (state = [], action) {
         ...action.burgers[burger]
       }))
     case ADD_BURGER :
-      return [...state, ...action.burger]
+      return [...state, action.burger]
     case UPDATE_BURGER :
-      return state.filter((burger) => burger.name === action.burger.name
-        ? {
-          name: burger,
-          ingredients: action.burgers[burger].ingredients
+      return state.filter((burger) => {
+        if(burger.name === action.burger.name) {
+          return action.burger
         }
-        : burger
-      )
+        return burger
+      })
+    case UPDATE_BURGER_IMAGE :
+      return state.filter((burger) => {
+        console.log(burger.name + " " + action.burger.name)
+        if(burger.name === action.burger.name) {
+          return action.burger
+        }
+        return burger
+      })
     case DELETE_BURGER :
       return state.filter((burger) => burger.name !== action.burger.name)
     default :
