@@ -105,3 +105,22 @@ table, th, td {
   background: white;
   /* background-color: rgba(150, 150, 100, 0.8); */
 }
+
+.nameRow {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px 0px;
+}
+
+.uploadBox {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 15px;
+  margin: 15px 0px;
+}
+
+.modalCloseButton {
+  position: absolute;
+  right: 5px;
+  top: 3px;
+}

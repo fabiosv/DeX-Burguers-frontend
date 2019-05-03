@@ -10,6 +10,21 @@ import { sucessToast, errorMsg } from '../utils/ux_alerts';
 import { loading, loaded } from '../actions/loading';
 import Modal from 'react-modal';
 
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    display               : "flex",
+    alignItems            : "center",
+    justifyContent        : "center",
+    flexDirection         : "column",
+  }
+};
+
 class BurgerContainer extends Component {
   state = {
     name: "",
@@ -86,33 +101,16 @@ class BurgerContainer extends Component {
 
   }
 
+  closeModal() {
+    this.setState((currentState) => ({
+      create: false,
+      edit: false
+    }))
+  }
+
   render(){
     const {create, edit, name} = this.state
     const {burgers} = this.props
-
-    if(create || edit) {
-      return(
-        <div className="containerFlex">
-          <label>Nome:</label>
-          <input name="name" disabled={edit}
-            placeholder="Ex: X-Burger"
-            type="text"
-            onChange={(e) => this.handleNameChange(e)}
-            value={name}/>
-          <ConnectedIngredientsList/>
-          <span style={{display: "flex", alignItems: "flex-end", marginBottom: "15px"}}>
-            <input type="file" name="file" onChange={(event) => this.handleUploadInput(event)}/>
-            <img alt="preview"
-              src={this.state.file === "" ? "/preview-image.png" : this.state.file}
-              height="200" width="200"/>
-          </span>
-          <p>Só serão aceitos arquivos no formato (.png)</p>
-          <button className="btn btn-secondary"
-            style={{display: "block"}}
-            onClick={(e) => this.save()}>Save</button>
-        </div>
-      )
-    }
 
     return(
       <div className="containerFlex">
@@ -158,6 +156,32 @@ class BurgerContainer extends Component {
             </span>
           </span>
         ))} */}
+        <Modal
+          isOpen={create || edit}
+          contentLabel="Burgers"
+          style={customStyles}
+        >
+          <button className="btn modalCloseButton" onClick={(e) => this.closeModal()}>X</button>
+          <span className="col-10 nameRow">
+            <label for="name">Nome:&nbsp;</label>
+            <input id="name" name="name" disabled={edit}
+              placeholder="Ex: X-Burger"
+              type="text"
+              onChange={(e) => this.handleNameChange(e)}
+              value={name}/>
+          </span>
+          <ConnectedIngredientsList cols="col-10"/>
+          <span className="uploadBox">
+            <input type="file" name="file" onChange={(event) => this.handleUploadInput(event)}/>
+            <img alt="preview"
+              src={this.state.file === "" ? "/preview-image.png" : this.state.file}
+              height="200" width="200"/>
+          </span>
+          <p>Só serão aceitos arquivos no formato (.png)</p>
+          <button className="btn btn-secondary"
+            style={{display: "block"}}
+            onClick={(e) => this.save()}>Save</button>
+        </Modal>
       </div>
     )
   }

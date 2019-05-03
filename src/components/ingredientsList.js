@@ -20,9 +20,9 @@ class IngredientsList extends Component {
   }
 
   render(){
-    const {ingredients} = this.props
+    const {ingredients, cols} = this.props
     return(
-      <div className="col-4">
+      <div className={cols ? cols : "col-4"}>
         {Object.keys(ingredients).map((ingredient) => (
           <span key={ingredient} className="ingredients">
             {ingredient}

@@ -32,6 +32,7 @@ class CustomPage extends Component {
     const {dispatch} = this.props
     dispatch(clearCustomList())
   }
+
   componentDidUpdate(prevState, prevProps){
     if(typeof(this.props.customBurger) !== "undefined"){
       if(this.props.customBurger.length !== this.state.selectedIngredients){
@@ -46,7 +47,6 @@ class CustomPage extends Component {
       }
     }
   }
-
 
 
   render() {
