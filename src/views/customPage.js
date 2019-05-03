@@ -48,13 +48,30 @@ class CustomPage extends Component {
     }
   }
 
+  getPrice(){
+    const {prices} = this.props
+    const price = prices.filter((burger) => burger.name === "custom")
+
+    console.log(price)
+
+    if(price.length > 0) {
+      return price[0]
+    }
+    return {
+      originalPrice: 0,
+      promoPrice: 0,
+      promotions: []
+    }
+  }
+
 
   render() {
-    const {ingredients, burgers, loading} = this.props;
+    const {ingredients, burgers, loading, prices} = this.props;
+    const price = this.getPrice()
     return (
       <React.Fragment>
         <Header/>
-        <Loader loading={loading}/>
+        {/* <Loader loading={loading}/> */}
         <div className="containerFlex content">
           <Sidebar history={this.props.history}/>
           {/* <div>
@@ -62,6 +79,16 @@ class CustomPage extends Component {
           </div> */}
           <h2>Faça seu próprio lanche</h2>
           <ConnectedIngredientsList/>
+          {price.promotions.length > 0 && (
+            <span>
+              <p>Promoção: {price.promotions.toString()}</p>
+              <p>De: R$ {price.originalPrice.toFixed(2)}</p>
+              <p>Por: R$ {price.promoPrice.toFixed(2)}</p>
+            </span>
+          )}
+          {price.promotions.length === 0 && (
+            <p>Preço: R$ {price.originalPrice.toFixed(2)}</p>
+          )}
         </div>
       </React.Fragment>
     )
