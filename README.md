@@ -1,3 +1,5 @@
+[![Website](https://img.shields.io/website/https/dex-burgers.herokuapp.com)](https://dex-burgers.herokuapp.com/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
